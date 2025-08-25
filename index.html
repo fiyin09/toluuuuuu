@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TOLU Love Animation</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7, #4facfe, #00f2fe);
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    h1 {
+      font-size: 120px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #ff4d4d, #ffcc00, #4d79ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+      z-index: 2;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .love {
+      position: absolute;
+      font-size: 22px;
+      color: #ff3366;
+      opacity: 0;
+      animation: floatUp 4s forwards;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      50% { transform: translateY(-80px) scale(1.3); opacity: 0.8; }
+      100% { transform: translateY(-150px) scale(0.8); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="tolu">TOLU</h1>
+
+  <script>
+    const container = document.body;
+    const messages = ["I ❤️ you", "💖", "😍", "😘", "❤️"];
+
+    function createLove(x, y) {
+      const love = document.createElement("div");
+      love.className = "love";
+      love.style.left = `${x}px`;
+      love.style.top = `${y}px`;
+      love.textContent = messages[Math.floor(Math.random() * messages.length)];
+      container.appendChild(love);
+
+      setTimeout(() => love.remove(), 4000);
+    }
+
+    // Auto-floating loves
+    setInterval(() => {
+      const x = Math.random() * window.innerWidth;
+      const y = window.innerHeight - 30;
+      createLove(x, y);
+    }, 1200);
+
+    // Click to spawn loves
+    document.getElementById("tolu").addEventListener("click", (e) => {
+      for (let i = 0; i < 5; i++) {
+        const x = e.clientX + (Math.random() * 100 - 50);
+        const y = e.clientY;
+        createLove(x, y);
+      }
+    });
+  </script>
+</body>
+</html>
